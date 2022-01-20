@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
-function PizzaForm() {
+function PizzaForm({
+  size,
+  topping,
+  vegetarian,
+  handlePizzaUpdate,
+  onSubmitPizza,
+}) {
+  // console.log(selectedPizza);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSubmitPizza();
+  }
+
   return (
-    <form onSubmit={null /*handle that submit*/}>
+    <form onSubmit={handleSubmit}>
       <div className="form-row">
         <div className="col-5">
           <input
+            value={topping}
+            onChange={handlePizzaUpdate}
             className="form-control"
             type="text"
             name="topping"
@@ -13,7 +28,12 @@ function PizzaForm() {
           />
         </div>
         <div className="col">
-          <select className="form-control" name="size">
+          <select
+            value={size}
+            onChange={handlePizzaUpdate}
+            className="form-control"
+            name="size"
+          >
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
@@ -22,19 +42,23 @@ function PizzaForm() {
         <div className="col">
           <div className="form-check">
             <input
+              checked={vegetarian ? true : false}
+              onChange={handlePizzaUpdate}
               className="form-check-input"
               type="radio"
               name="vegetarian"
-              value="Vegetarian"
+              value={true}
             />
             <label className="form-check-label">Vegetarian</label>
           </div>
           <div className="form-check">
             <input
+              checked={vegetarian ? false : true}
+              onChange={handlePizzaUpdate}
               className="form-check-input"
               type="radio"
               name="vegetarian"
-              value="Not Vegetarian"
+              value={false}
             />
             <label className="form-check-label">Not Vegetarian</label>
           </div>

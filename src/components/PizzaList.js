@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Pizza from "./Pizza";
 
-function PizzaList() {
+function PizzaList({ pizzas, handlePizzaSelect }) {
+  // const [pizzas, setPizzas] = useState([]);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:3001/pizzas")
+  //     .then((r) => r.json())
+  //     .then((receivedPizzas) => setPizzas(receivedPizzas));
+  // }, []);
+
+  const pizzaComponents = pizzas.map((pizza) => {
+    return (
+      <Pizza
+        key={pizza.id}
+        id={pizza.id}
+        topping={pizza.topping}
+        size={pizza.size}
+        vegetarian={pizza.vegetarian}
+        handlePizzaSelect={handlePizzaSelect}
+      />
+    );
+  });
+
   return (
     <table className="table table-striped">
       <thead>
@@ -12,11 +33,7 @@ function PizzaList() {
           <th scope="col">Edit</th>
         </tr>
       </thead>
-      <tbody>
-        {
-          //render Pizza here
-        }
-      </tbody>
+      <tbody>{pizzaComponents}</tbody>
     </table>
   );
 }
